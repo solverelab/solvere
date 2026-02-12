@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solvere – Laenuküsimustik</title>
+
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+  <main class="wrap">
+    <header class="pagehead">
+      <h1>Laenulepingu vaidluse küsimustik</h1>
+      <p class="lead">Vali vastused. Iga küsimuse juures saab selgituse avada “?” nupust.</p>
+
+      <!-- lihtne keelelüliti (kui vajad) -->
+      <div class="langswitch" role="group" aria-label="Keel">
+        <button class="langbtn is-active" type="button" data-lang="et">ET</button>
+        <button class="langbtn" type="button" data-lang="ru">RU</button>
+      </div>
+    </header>
+
+    <!-- FILTER 0 -->
+    <section class="card">
+      <h2 class="section-title">Filter 0 – Mis liiki olukord see on?</h2>
+
+      <!-- Question block (korduv muster) -->
+      <div class="q" data-qid="q1">
+        <div class="q-row">
+          <h3 class="q-title">1. Kuidas raha “liikus”?</h3>
+
+          <button
+            class="helpbtn"
+            type="button"
+            aria-label="Ava selgitus küsimusele 1"
+            aria-expanded="false"
+            aria-controls="help-q1"
+            data-help-target="help-q1">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 1 vastused">
+          <label class="opt"><input type="radio" name="q1" value="direct"> Andsin raha otse teisele inimesele (ülekanne / sularaha)</label>
+          <label class="opt"><input type="radio" name="q1" value="third"> Maksin tema eest kolmandale isikule (nt remont, üür, arve)</label>
+        </div>
+
+        <div class="help" id="help-q1" role="region" aria-label="Selgitus küsimusele 1" hidden>
+          <div class="help-inner">
+            <div class="help-et" data-lang="et">
+              See aitab eristada, kas raha anti inimesele otse või tasuti tema kohustus kellelegi teisele. Vaidlustes võib sellest sõltuda, mis fakti üle hiljem vaieldakse: kas “raha anti” või “tema kohustus sai tasutud”.
+            </div>
+            <div class="help-ru" data-lang="ru" hidden>
+              Это помогает различить: деньги были переданы человеку напрямую или ты оплатил(а) его обязательство третьему лицу. В спорах это влияет на то, какой факт обсуждается: «деньги переданы» или «обязательство оплачено».
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2: nähtav ainult siis, kui q1 = third (teeme JS-iga) -->
+      <div class="q" data-qid="q2" data-show-when="q1:third">
+        <div class="q-row">
+          <h3 class="q-title">2. Kas enne maksmist oli arusaam, et ta maksab selle summa sulle tagasi?</h3>
+
+          <button
+            class="helpbtn"
+            type="button"
+            aria-label="Ava selgitus küsimusele 2"
+            aria-expanded="false"
+            aria-controls="help-q2"
+            data-help-target="help-q2">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 2 vastused">
+          <label class="opt"><input type="radio" name="q2" value="yes"> Jah</label>
+          <label class="opt"><input type="radio" name="q2" value="no"> Ei</label>
+          <label class="opt"><input type="radio" name="q2" value="unsure"> Ei ole kindel</label>
+        </div>
+
+        <div class="help" id="help-q2" role="region" aria-label="Selgitus küsimusele 2" hidden>
+          <div class="help-inner">
+            <div class="help-et" data-lang="et">
+              See kirjeldab, kas makse oli mõeldud “tagastatavana” (st teise poole lubadus/ootus, et ta tasub hiljem). Kui arusaam oli teistsugune, võib vaidluse keskpunkt olla muu (nt abi, ühine kulu, kink).
+            </div>
+            <div class="help-ru" data-lang="ru" hidden>
+              Это описывает, воспринималась ли оплата как «подлежащая возврату» (то есть ожидание/обещание, что он(а) вернёт позже). Если понимание было иным, в споре может быть другой фокус (помощь, общий расход, подарок).
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
