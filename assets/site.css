@@ -119,3 +119,20 @@
   .helpbtn { width: 36px; height: 36px; }
   .opt { padding: 12px 10px; }
 }
+
+/* STOP card */
+.stopcard {
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+}
+
+.stoptext {
+  margin: 0;
+  line-height: 1.45;
+  opacity: .95;
+}
+
+/* optional: make it stand out a bit */
+.stopcard .section-title {
+  margin-bottom: 10px;
+}
