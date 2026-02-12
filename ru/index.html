@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solvere – Опросник (Займ)</title>
+
+  <link rel="stylesheet" href="/assets/site.css" />
+
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-pjc0qZXxUiq_r44m96Ana.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+</head>
+
+<body>
+  <main class="wrap">
+    <header class="pagehead">
+      <div class="topbar">
+        <h1 class="pagetitle">Опросник по спору о займе</h1>
+        <nav class="langnav" aria-label="Язык">
+          <a class="langlink" href="/">ET</a>
+          <a class="langlink is-active" href="/ru/" aria-current="page">RU</a>
+        </nav>
+      </div>
+
+      <p class="lead">
+        Выберите ответы. Пояснение к каждому вопросу открывается круглой кнопкой “?”.
+      </p>
+    </header>
+
+    <!-- FILTER 0 -->
+    <section class="card">
+      <h2 class="section-title">Фильтр 0 — Какого типа ситуация?</h2>
+
+      <!-- Q1 -->
+      <div class="q" data-qid="q1">
+        <div class="q-row">
+          <h3 class="q-title">1. Как “двигались” деньги?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 1"
+            aria-expanded="false"
+            aria-controls="help-q1"
+            data-help-target="help-q1">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 1">
+          <label class="opt"><input type="radio" name="q1" value="direct"> Передал(а) деньги напрямую человеку (перевод / наличные)</label>
+          <label class="opt"><input type="radio" name="q1" value="third"> Оплатил(а) за него третьему лицу (ремонт, аренда, счёт и т.п.)</label>
+        </div>
+
+        <div class="help" id="help-q1" role="region" aria-label="Пояснение к вопросу 1" hidden>
+          <div class="help-inner">
+            Этот вопрос фиксирует: деньги передавались напрямую человеку или была оплачена его обязанность третьему лицу.
+            В спорах это влияет на то, обсуждается ли “передача денег” или “оплата обязательства”.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 conditional -->
+      <div class="q is-hidden" data-qid="q2" data-show-when="q1:third">
+        <div class="q-row">
+          <h3 class="q-title">2. Было ли понимание до оплаты, что он(а) вернёт эту сумму вам?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 2"
+            aria-expanded="false"
+            aria-controls="help-q2"
+            data-help-target="help-q2">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 2">
+          <label class="opt"><input type="radio" name="q2" value="yes"> Да</label>
+          <label class="opt"><input type="radio" name="q2" value="no"> Нет</label>
+          <label class="opt"><input type="radio" name="q2" value="unsure"> Не уверен(а)</label>
+        </div>
+
+        <div class="help" id="help-q2" role="region" aria-label="Пояснение к вопросу 2" hidden>
+          <div class="help-inner">
+            Здесь фиксируется, воспринималась ли оплата как “подлежащая возврату” (ожидание/обещание вернуть позже).
+            Если понимание было иным, спор может быть о другом (помощь, общий расход, подарок, иная договорённость).
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FILTER 1 -->
+    <section class="card">
+      <h2 class="section-title">Фильтр 1 — Описание договорённости о возврате</h2>
+
+      <!-- Q3 -->
+      <div class="q" data-qid="q3">
+        <div class="q-row">
+          <h3 class="q-title">3. Было ли соглашение, что сумма подлежит возврату?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 3"
+            aria-expanded="false"
+            aria-controls="help-q3"
+            data-help-target="help-q3">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 3">
+          <label class="opt"><input type="radio" name="q3" value="clear"> Да, однозначно</label>
+          <label class="opt"><input type="radio" name="q3" value="oral"> Да, но только устно / “между делом”</label>
+          <label class="opt"><input type="radio" name="q3" value="unsure"> Не уверен(а)</label>
+        </div>
+
+        <div class="help" id="help-q3" role="region" aria-label="Пояснение к вопросу 3" hidden>
+          <div class="help-inner">
+            Этот вопрос фиксирует, было ли в понимании сторон ключевое условие “вернуть”.
+            В спорах это часто центральный пункт: одна сторона считает это займом, другая — помощью или иной договорённостью.
+            Ответ “не уверен(а)” обычно означает расплывчатые формулировки (“как получится”, “потом”).
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q" data-qid="q4">
+        <div class="q-row">
+          <h3 class="q-title">4. Есть ли это соглашение где-то зафиксировано или прослеживается?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 4"
+            aria-expanded="false"
+            aria-controls="help-q4"
+            data-help-target="help-q4">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 4">
+          <label class="opt"><input type="radio" name="q4" value="contract"> Письменный договор / расписка</label>
+          <label class="opt"><input type="radio" name="q4" value="messages"> Сообщения / e-mail</label>
+          <label class="opt"><input type="radio" name="q4" value="oral"> Только устно</label>
+          <label class="opt"><input type="radio" name="q4" value="missing"> Не знаю / не сохранилось</label>
+        </div>
+
+        <div class="help" id="help-q4" role="region" aria-label="Пояснение к вопросу 4" hidden>
+          <div class="help-inner">
+            Здесь описывается, есть ли “след” договорённости, который можно увидеть независимо от памяти сторон.
+            Если такого следа нет или он не сохранился, спор чаще смещается к тому, как стороны описывают условия и что подтверждает их версию.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER 2 -->
+    <section class="card">
+      <h2 class="section-title">Фильтр 2 — Время (когда должен был быть возврат)</h2>
+
+      <!-- Q5 -->
+      <div class="q" data-qid="q5">
+        <div class="q-row">
+          <h3 class="q-title">5. Договаривались ли, когда деньги нужно вернуть?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 5"
+            aria-expanded="false"
+            aria-controls="help-q5"
+            data-help-target="help-q5">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 5">
+          <label class="opt"><input type="radio" name="q5" value="date"> Да, конкретная дата</label>
+          <label class="opt"><input type="radio" name="q5" value="period"> Да, в течение периода</label>
+          <label class="opt"><input type="radio" name="q5" value="none"> Нет, срок не обсуждался</label>
+          <label class="opt"><input type="radio" name="q5" value="unsure"> Не уверен(а)</label>
+        </div>
+
+        <div class="help" id="help-q5" role="region" aria-label="Пояснение к вопросу 5" hidden>
+          <div class="help-inner">
+            Этот вопрос фиксирует, был ли срок возврата определён или оставался “открытым”.
+            Разногласия часто возникают именно здесь: одна сторона помнит дату, другая — общую фразу “верну”.
+            Далее важно понять: срок уже прошёл или тема возврата отдельно обозначалась.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q is-hidden" data-qid="q6" data-show-when-any="q5:date|q5:period">
+        <div class="q-row">
+          <h3 class="q-title">6. Этот срок уже прошёл?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 6"
+            aria-expanded="false"
+            aria-controls="help-q6"
+            data-help-target="help-q6">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 6">
+          <label class="opt"><input type="radio" name="q6" value="yes"> Да</label>
+          <label class="opt"><input type="radio" name="q6" value="no"> Нет</label>
+        </div>
+
+        <div class="help" id="help-q6" role="region" aria-label="Пояснение к вопросу 6" hidden>
+          <div class="help-inner">
+            Это фактический вопрос: наступил ли согласованный момент возврата.
+            Если срок ещё не прошёл, обсуждение обычно фокусируется на содержании договорённости, а не на “просрочке”.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6A -->
+      <div class="q is-hidden" data-qid="q6a" data-show-when-any="q5:none|q5:unsure">
+        <div class="q-row">
+          <h3 class="q-title">6A. Говорили ли вы чётко, что хотите вернуть деньги?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 6A"
+            aria-expanded="false"
+            aria-controls="help-q6a"
+            data-help-target="help-q6a">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 6A">
+          <label class="opt"><input type="radio" name="q6a" value="yes"> Да</label>
+          <label class="opt"><input type="radio" name="q6a" value="no"> Нет</label>
+          <label class="opt"><input type="radio" name="q6a" value="unsure"> Не уверен(а)</label>
+        </div>
+
+        <div class="help" id="help-q6a" role="region" aria-label="Пояснение к вопросу 6A" hidden>
+          <div class="help-inner">
+            Если срок не обсуждался (или он неясен), этот вопрос фиксирует, обозначалась ли тема возврата отдельно и однозначно.
+            “Не уверен(а)” обычно означает, что разговор был косвенным или без прямой просьбы “верни”.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER 3 -->
+    <section class="card">
+      <h2 class="section-title">Фильтр 3 — Возврат и позиции сторон</h2>
+
+      <!-- Q7 -->
+      <div class="q" data-qid="q7">
+        <div class="q-row">
+          <h3 class="q-title">7. Деньги возвращены?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 7"
+            aria-expanded="false"
+            aria-controls="help-q7"
+            data-help-target="help-q7">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 7">
+          <label class="opt"><input type="radio" name="q7" value="full"> Да, полностью</label>
+          <label class="opt"><input type="radio" name="q7" value="part"> Да, частично</label>
+          <label class="opt"><input type="radio" name="q7" value="none"> Нет</label>
+          <label class="opt"><input type="radio" name="q7" value="unsure"> Не уверен(а)</label>
+        </div>
+
+        <div class="help" id="help-q7" role="region" aria-label="Пояснение к вопросу 7" hidden>
+          <div class="help-inner">
+            Этот вопрос фиксирует состояние возврата. Если версии сторон различаются,
+            спор часто смещается к идентификации платежей: дата, сумма, назначение.
+            “Не уверен(а)” подходит, когда были движения денег, но общая картина неясна.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="q is-hidden" data-qid="q8" data-show-when-any="q7:part|q7:unsure">
+        <div class="q-row">
+          <h3 class="q-title">8. Понятно ли, какая сумма ещё не возвращена?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 8"
+            aria-expanded="false"
+            aria-controls="help-q8"
+            data-help-target="help-q8">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 8">
+          <label class="opt"><input type="radio" name="q8" value="exact"> Да, точно</label>
+          <label class="opt"><input type="radio" name="q8" value="rough"> Примерно</label>
+          <label class="opt"><input type="radio" name="q8" value="no"> Нет</label>
+        </div>
+
+        <div class="help" id="help-q8" role="region" aria-label="Пояснение к вопросу 8" hidden>
+          <div class="help-inner">
+            Это описывает, насколько ясна “сводка” по возвратам.
+            Если она неясна, спор часто становится спором об учёте: что считать возвратом, а что — отдельной сделкой.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q" data-qid="q9">
+        <div class="q-row">
+          <h3 class="q-title">9. Говорит ли другая сторона, что деньги уже возвращены?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 9"
+            aria-expanded="false"
+            aria-controls="help-q9"
+            data-help-target="help-q9">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 9">
+          <label class="opt"><input type="radio" name="q9" value="yes"> Да</label>
+          <label class="opt"><input type="radio" name="q9" value="no"> Нет</label>
+          <label class="opt"><input type="radio" name="q9" value="dontknow"> Не знаю</label>
+        </div>
+
+        <div class="help" id="help-q9" role="region" aria-label="Пояснение к вопросу 9" hidden>
+          <div class="help-inner">
+            Это фиксирует, есть ли у сторон противоположные заявления о возврате.
+            В таких ситуациях важными становятся подробности: когда, как и в каком размере происходили платежи (перевод, наличные, зачёт и т.п.).
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q is-hidden" data-qid="q10" data-show-when="q9:yes">
+        <div class="q-row">
+          <h3 class="q-title">10. Известно ли вам, есть ли у него(неё) подтверждение этого?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 10"
+            aria-expanded="false"
+            aria-controls="help-q10"
+            data-help-target="help-q10">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 10">
+          <label class="opt"><input type="radio" name="q10" value="yes"> Да</label>
+          <label class="opt"><input type="radio" name="q10" value="no"> Нет</label>
+          <label class="opt"><input type="radio" name="q10" value="dontknow"> Не знаю</label>
+        </div>
+
+        <div class="help" id="help-q10" role="region" aria-label="Пояснение к вопросу 10" hidden>
+          <div class="help-inner">
+            “Подтверждение” может быть разным: банковский перевод, квитанция, сообщение “получено”, и т.д.
+            Если нет привязки к конкретному платежу, часто остаётся ситуация “слово против слова”, и детали события становятся ключевыми.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER 4 -->
+    <section class="card">
+      <h2 class="section-title">Фильтр 4 — Проценты, пеня и дополнительные суммы</h2>
+
+      <!-- Q11 -->
+      <div class="q" data-qid="q11">
+        <div class="q-row">
+          <h3 class="q-title">11. Было ли соглашение о процентах (плата за пользование деньгами)?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 11"
+            aria-expanded="false"
+            aria-controls="help-q11"
+            data-help-target="help-q11">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 11">
+          <label class="opt"><input type="radio" name="q11" value="yes"> Да</label>
+          <label class="opt"><input type="radio" name="q11" value="no"> Нет</label>
+          <label class="opt"><input type="radio" name="q11" value="dontknow"> Не знаю</label>
+        </div>
+
+        <div class="help" id="help-q11" role="region" aria-label="Пояснение к вопросу 11" hidden>
+          <div class="help-inner">
+            Этот вопрос фиксирует, обсуждалась ли помимо основной суммы ещё и плата за пользование деньгами.
+            Иногда это оговаривается явно, иногда не обсуждается, а иногда используется расплывчатая формулировка.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q12 -->
+      <div class="q" data-qid="q12">
+        <div class="q-row">
+          <h3 class="q-title">12. Если возврат задержался, обсуждалась ли доплата за задержку?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Открыть пояснение к вопросу 12"
+            aria-expanded="false"
+            aria-controls="help-q12"
+            data-help-target="help-q12">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Ответы на вопрос 12">
+          <label class="opt"><input type="radio" name="q12" value="delayfee"> Да, пеня / плата за просрочку</label>
+          <label class="opt"><input type="radio" name="q12" value="interest_after"> Да, “проценты” и после срока</label>
+          <label class="opt"><input type="radio" name="q12" value="principal_only"> Нет, только основная сумма</label>
+          <label class="opt"><input type="radio" name="q12" value="dontknow"> Не знаю</label>
+        </div>
+
+        <div class="help" id="help-q12" role="region" aria-label="Пояснение к вопросу 12" hidden>
+          <div class="help-inner">
+            Этот вопрос фиксирует, обсуждались ли дополнительные суммы, связанные с задержкой возврата.
+            На практике стороны могут называть это разными словами (“пеня”, “проценты”, “доплата”), поэтому здесь важно просто зафиксировать, о чём шла речь.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>
