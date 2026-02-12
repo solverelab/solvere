@@ -1,29 +1,24 @@
 (() => {
-  const state = {
-    lang: "et",
-  };
-
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  function setLang(lang) {
-    state.lang = lang;
-    $$(".langbtn").forEach(btn => btn.classList.toggle("is-active", btn.dataset.lang === lang));
-    $$("[data-lang]").forEach(el => {
-      const isMatch = el.dataset.lang === lang;
-      // Only toggle elements that are language variants inside help blocks or content.
-      // If you later add non-language data-lang attributes, scope this selector.
-      if (el.classList.contains("help-et") || el.classList.contains("help-ru") || el.closest(".help")) {
-        el.hidden = !isMatch;
+  // Safe Plausible wrapper
+  function track(eventName, props = {}) {
+    try {
+      if (typeof window.plausible === "function") {
+        window.plausible(eventName, { props });
       }
-    });
+    } catch (_) {}
   }
 
   function closeAllHelp(exceptId = null) {
     $$(".help").forEach(panel => {
       if (exceptId && panel.id === exceptId) return;
-      panel.hidden = true;
+      if (!panel.hidden) {
+        panel.hidden = true;
+      }
     });
+
     $$(".helpbtn").forEach(btn => {
       const targetId = btn.dataset.helpTarget;
       if (exceptId && targetId === exceptId) return;
@@ -37,18 +32,23 @@
     if (!panel) return;
 
     const isOpen = !panel.hidden;
-    closeAllHelp(); // accordion behavior: one open at a time
+
+    // accordion behavior: only one open
+    closeAllHelp();
 
     if (!isOpen) {
-      // open
       panel.hidden = false;
       button.setAttribute("aria-expanded", "true");
-
-      // ensure language variant visible
-      const et = $(`.help-et[data-lang="et"]`, panel);
-      const ru = $(`.help-ru[data-lang="ru"]`, panel);
-      if (et) et.hidden = state.lang !== "et";
-      if (ru) ru.hidden = state.lang !== "ru";
+      track("Help Opened", {
+        qid: button.closest(".q")?.dataset.qid || "",
+        helpId: targetId
+      });
+    } else {
+      // If it was open, it is already closed by closeAllHelp()
+      track("Help Closed", {
+        qid: button.closest(".q")?.dataset.qid || "",
+        helpId: targetId
+      });
     }
   }
 
@@ -62,7 +62,6 @@
 
     // Close on outside click
     document.addEventListener("click", (e) => {
-      // if click is inside an open help panel or on a help button, ignore (help button stops propagation anyway)
       const inHelp = e.target.closest(".help");
       if (!inHelp) closeAllHelp();
     });
@@ -78,56 +77,84 @@
     return checked ? checked.value : null;
   }
 
-  function evalVisibilityRule(rule) {
-    // rule format: "q1:third"
+  function evalRuleExact(rule) {
+    // "q1:third"
     const [qName, expected] = rule.split(":");
     const actual = getRadioValue(qName);
     return actual === expected;
   }
 
+  function evalRuleAny(ruleAny) {
+    // "q5:date|q5:period"
+    const parts = ruleAny.split("|").map(s => s.trim()).filter(Boolean);
+    return parts.some(evalRuleExact);
+  }
+
   function updateConditionalQuestions() {
-    $$(".q[data-show-when]").forEach(block => {
-      const rule = block.dataset.showWhen;
-      const show = evalVisibilityRule(rule);
+    const dependentBlocks = $$(".q[data-show-when], .q[data-show-when-any]");
+
+    dependentBlocks.forEach(block => {
+      const prevHidden = block.classList.contains("is-hidden");
+      let show = true;
+
+      if (block.dataset.showWhen) show = evalRuleExact(block.dataset.showWhen);
+      if (block.dataset.showWhenAny) show = evalRuleAny(block.dataset.showWhenAny);
+
       block.classList.toggle("is-hidden", !show);
 
-      // if hidden, also close help inside and clear answers inside (optional: here we clear)
-      if (!show) {
-        // close help panel if open
+      const nowHidden = block.classList.contains("is-hidden");
+
+      // Track show/hide transitions
+      if (prevHidden && !nowHidden) {
+        track("Question Shown", { qid: block.dataset.qid || "" });
+      }
+      if (!prevHidden && nowHidden) {
+        track("Question Hidden", { qid: block.dataset.qid || "" });
+      }
+
+      // If hidden: close its help and clear radios inside (keeps state clean)
+      if (nowHidden) {
         const help = $(".help", block);
         if (help) help.hidden = true;
         const helpBtn = $(".helpbtn", block);
         if (helpBtn) helpBtn.setAttribute("aria-expanded", "false");
 
-        // clear radios inside hidden block
-        $$('input[type="radio"]', block).forEach(r => (r.checked = false));
+        $$('input[type="radio"]', block).forEach(r => {
+          if (r.checked) {
+            r.checked = false;
+          }
+        });
       }
     });
   }
 
-  function wireConditionals() {
-    // listen to any radio change to update rules
+  function wireConditionalsAndAnswers() {
     document.addEventListener("change", (e) => {
       const t = e.target;
-      if (t && t.matches('input[type="radio"]')) {
-        updateConditionalQuestions();
-      }
+      if (!t || !t.matches('input[type="radio"]')) return;
+
+      const qBlock = t.closest(".q");
+      const qid = qBlock?.dataset.qid || "";
+      const name = t.getAttribute("name") || "";
+      const value = t.value || "";
+
+      track("Answer Selected", { qid, name, value });
+
+      // Update dependent visibility after any selection
+      updateConditionalQuestions();
     });
 
     // initial state
     updateConditionalQuestions();
   }
 
-  function wireLangSwitch() {
-    const etBtn = $('.langbtn[data-lang="et"]');
-    const ruBtn = $('.langbtn[data-lang="ru"]');
-    if (etBtn) etBtn.addEventListener("click", () => setLang("et"));
-    if (ruBtn) ruBtn.addEventListener("click", () => setLang("ru"));
-    setLang("et");
-  }
-
   // init
   wireHelp();
-  wireConditionals();
-  wireLangSwitch();
+  wireConditionalsAndAnswers();
+
+  // Optional: track pageview context (Plausible already tracks pageviews automatically)
+  track("Questionnaire Loaded", {
+    path: location.pathname || "",
+    lang: document.documentElement.lang || ""
+  });
 })();
