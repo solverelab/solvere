@@ -14,9 +14,7 @@
   function closeAllHelp(exceptId = null) {
     $$(".help").forEach(panel => {
       if (exceptId && panel.id === exceptId) return;
-      if (!panel.hidden) {
-        panel.hidden = true;
-      }
+      if (!panel.hidden) panel.hidden = true;
     });
 
     $$(".helpbtn").forEach(btn => {
@@ -33,7 +31,7 @@
 
     const isOpen = !panel.hidden;
 
-    // accordion behavior: only one open
+    // accordion behavior
     closeAllHelp();
 
     if (!isOpen) {
@@ -44,7 +42,6 @@
         helpId: targetId
       });
     } else {
-      // If it was open, it is already closed by closeAllHelp()
       track("Help Closed", {
         qid: button.closest(".q")?.dataset.qid || "",
         helpId: targetId
@@ -104,7 +101,6 @@
 
       const nowHidden = block.classList.contains("is-hidden");
 
-      // Track show/hide transitions
       if (prevHidden && !nowHidden) {
         track("Question Shown", { qid: block.dataset.qid || "" });
       }
@@ -112,7 +108,7 @@
         track("Question Hidden", { qid: block.dataset.qid || "" });
       }
 
-      // If hidden: close its help and clear radios inside (keeps state clean)
+      // If hidden: close help + clear radios inside
       if (nowHidden) {
         const help = $(".help", block);
         if (help) help.hidden = true;
@@ -120,13 +116,99 @@
         if (helpBtn) helpBtn.setAttribute("aria-expanded", "false");
 
         $$('input[type="radio"]', block).forEach(r => {
-          if (r.checked) {
-            r.checked = false;
-          }
+          if (r.checked) r.checked = false;
         });
       }
     });
   }
+
+  // --- STOP LOGIC ----------------------------------------------------------
+
+  function getStopMessages() {
+    const lang = (document.documentElement.lang || "").toLowerCase();
+    const isRU = lang.startsWith("ru");
+
+    if (isRU) {
+      return {
+        A: "По описанию это больше похоже на ситуацию без понимания «вернуть». В таком случае спор обычно смещается к тому, как стороны понимали оплату: помощь, общий расход, подарок или иная договорённость.",
+        B: "По ответам содержание договорённости о возврате описывается неясно и не прослеживается в сообщениях/документах. В таких ситуациях спор часто концентрируется на том, была ли договорённость о возврате и как именно её понимать.",
+        C: "По ответам согласованный срок возврата ещё не прошёл. В этом случае обсуждение обычно касается условий и понимания сторон, а не факта «просрочки».",
+        D: "По ответам при отсутствии/неясности срока не видно, что тема возврата была отдельно и однозначно обозначена. Тогда спор часто концентрируется на том, как и когда стороны начали обсуждать возврат.",
+        E: "По ответам основная сумма возвращена полностью. Если разногласия остаются, они обычно касаются деталей: что именно считалось возвратом, были ли дополнительные суммы и как стороны это понимали."
+      };
+    }
+
+    // ET
+    return {
+      A: "Vastuste põhjal kirjeldub olukord pigem sellisena, kus tagastamise arusaam ei olnud osa kokkuleppest. Sellisel juhul liigub vaidluse fookus sageli sellele, kuidas pooled makset mõistsid: abi, ühine kulu, kink või muu kokkulepe.",
+      B: "Vastuste põhjal on tagastamise kokkuleppe sisu ebaselge ja see ei ole sõnumitest/dokumendist jälgitav. Sellistes olukordades koondub vaidlus sageli sellele, kas tagastamiskokkulepe oli ja kuidas seda mõista.",
+      C: "Vastuste põhjal ei ole kokkulepitud tagasimakse aeg veel möödas. Sel juhul on arutelu fookus tavaliselt pigem kokkuleppe sisul ja poolte arusaamadel, mitte “hilinemisel”.",
+      D: "Vastuste põhjal ei ole tähtaja puudumisel/ebaselgusel näha, et tagasimakse teema oleks olnud eraldi ja üheselt sõnastatud. Sellisel juhul koondub vaidlus sageli sellele, kuidas ja millal tagasimakse teema poolte vahel tekkis.",
+      E: "Vastuste põhjal on põhisumma tagasi makstud. Kui erimeelsus siiski püsib, puudutab see sageli detaile: mida loeti tagasimakseks, kas arutati lisasummasid ja kuidas pooled seda mõistsid."
+    };
+  }
+
+  function computeStop() {
+    const q1 = getRadioValue("q1");
+    const q2 = getRadioValue("q2");
+    const q3 = getRadioValue("q3");
+    const q4 = getRadioValue("q4");
+    const q5 = getRadioValue("q5");
+    const q6 = getRadioValue("q6");
+    const q6a = getRadioValue("q6a");
+    const q7 = getRadioValue("q7");
+
+    // Priority order (first match wins)
+    // A) paid third party + no return understanding
+    if (q1 === "third" && q2 === "no") return "A";
+
+    // B) return agreement unsure + only oral or missing trace
+    if (q3 === "unsure" && (q4 === "oral" || q4 === "missing")) return "B";
+
+    // C) fixed date/period + deadline not passed
+    if ((q5 === "date" || q5 === "period") && q6 === "no") return "C";
+
+    // D) no/unclear deadline + return request not clearly stated
+    if ((q5 === "none" || q5 === "unsure") && q6a === "no") return "D";
+
+    // E) fully repaid
+    if (q7 === "full") return "E";
+
+    return null;
+  }
+
+  let lastStopKey = null;
+
+  function updateStopUI() {
+    const stopCard = $("#stopcard");
+    const stopText = $("#stopText");
+    if (!stopCard || !stopText) return;
+
+    const messages = getStopMessages();
+    const key = computeStop();
+
+    if (!key) {
+      // hide
+      if (!stopCard.classList.contains("is-hidden")) {
+        stopCard.classList.add("is-hidden");
+        stopText.textContent = "";
+        if (lastStopKey) track("Stop Cleared", { stopKey: lastStopKey });
+      }
+      lastStopKey = null;
+      return;
+    }
+
+    // show / update
+    stopText.textContent = messages[key] || "";
+    stopCard.classList.remove("is-hidden");
+
+    if (key !== lastStopKey) {
+      track("Stop Shown", { stopKey: key });
+      lastStopKey = key;
+    }
+  }
+
+  // --- ANSWERS + CONDITIONALS ---------------------------------------------
 
   function wireConditionalsAndAnswers() {
     document.addEventListener("change", (e) => {
@@ -140,19 +222,19 @@
 
       track("Answer Selected", { qid, name, value });
 
-      // Update dependent visibility after any selection
       updateConditionalQuestions();
+      updateStopUI();
     });
 
-    // initial state
     updateConditionalQuestions();
+    updateStopUI();
   }
 
   // init
   wireHelp();
   wireConditionalsAndAnswers();
 
-  // Optional: track pageview context (Plausible already tracks pageviews automatically)
+  // Page context event (Plausible already does pageviews automatically)
   track("Questionnaire Loaded", {
     path: location.pathname || "",
     lang: document.documentElement.lang || ""
