@@ -6,33 +6,40 @@
   <title>Solvere – Laenuküsimustik</title>
 
   <link rel="stylesheet" href="assets/site.css" />
-</head>
-<body>
 
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-pjc0qZXxUiq_r44m96Ana.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+</head>
+
+<body>
   <main class="wrap">
     <header class="pagehead">
-      <h1>Laenulepingu vaidluse küsimustik</h1>
-      <p class="lead">Vali vastused. Iga küsimuse juures saab selgituse avada “?” nupust.</p>
-
-      <!-- lihtne keelelüliti (kui vajad) -->
-      <div class="langswitch" role="group" aria-label="Keel">
-        <button class="langbtn is-active" type="button" data-lang="et">ET</button>
-        <button class="langbtn" type="button" data-lang="ru">RU</button>
+      <div class="topbar">
+        <h1 class="pagetitle">Laenulepingu vaidluse küsimustik</h1>
+        <nav class="langnav" aria-label="Keel">
+          <a class="langlink is-active" href="/" aria-current="page">ET</a>
+          <a class="langlink" href="/ru/">RU</a>
+        </nav>
       </div>
+
+      <p class="lead">
+        Vali vastused. Iga küsimuse juures saad selgituse avada ümmargusest “?” nupust.
+      </p>
     </header>
 
     <!-- FILTER 0 -->
     <section class="card">
       <h2 class="section-title">Filter 0 – Mis liiki olukord see on?</h2>
 
-      <!-- Question block (korduv muster) -->
+      <!-- Q1 -->
       <div class="q" data-qid="q1">
         <div class="q-row">
           <h3 class="q-title">1. Kuidas raha “liikus”?</h3>
-
-          <button
-            class="helpbtn"
-            type="button"
+          <button class="helpbtn" type="button"
             aria-label="Ava selgitus küsimusele 1"
             aria-expanded="false"
             aria-controls="help-q1"
@@ -48,24 +55,17 @@
 
         <div class="help" id="help-q1" role="region" aria-label="Selgitus küsimusele 1" hidden>
           <div class="help-inner">
-            <div class="help-et" data-lang="et">
-              See aitab eristada, kas raha anti inimesele otse või tasuti tema kohustus kellelegi teisele. Vaidlustes võib sellest sõltuda, mis fakti üle hiljem vaieldakse: kas “raha anti” või “tema kohustus sai tasutud”.
-            </div>
-            <div class="help-ru" data-lang="ru" hidden>
-              Это помогает различить: деньги были переданы человеку напрямую или ты оплатил(а) его обязательство третьему лицу. В спорах это влияет на то, какой факт обсуждается: «деньги переданы» или «обязательство оплачено».
-            </div>
+            See küsimus kirjeldab, kas raha anti inimesele otse või tasuti tema kohustus kellelegi teisele.
+            Vaidlustes võib sellest sõltuda, kas arutelu keskendub “raha üleandmisele” või “kohustuse tasumisele”.
           </div>
         </div>
       </div>
 
-      <!-- Q2: nähtav ainult siis, kui q1 = third (teeme JS-iga) -->
-      <div class="q" data-qid="q2" data-show-when="q1:third">
+      <!-- Q2 (conditional: show when q1=third) -->
+      <div class="q is-hidden" data-qid="q2" data-show-when="q1:third">
         <div class="q-row">
           <h3 class="q-title">2. Kas enne maksmist oli arusaam, et ta maksab selle summa sulle tagasi?</h3>
-
-          <button
-            class="helpbtn"
-            type="button"
+          <button class="helpbtn" type="button"
             aria-label="Ava selgitus küsimusele 2"
             aria-expanded="false"
             aria-controls="help-q2"
@@ -82,12 +82,334 @@
 
         <div class="help" id="help-q2" role="region" aria-label="Selgitus küsimusele 2" hidden>
           <div class="help-inner">
-            <div class="help-et" data-lang="et">
-              See kirjeldab, kas makse oli mõeldud “tagastatavana” (st teise poole lubadus/ootus, et ta tasub hiljem). Kui arusaam oli teistsugune, võib vaidluse keskpunkt olla muu (nt abi, ühine kulu, kink).
-            </div>
-            <div class="help-ru" data-lang="ru" hidden>
-              Это описывает, воспринималась ли оплата как «подлежащая возврату» (то есть ожидание/обещание, что он(а) вернёт позже). Если понимание было иным, в споре может быть другой фокус (помощь, общий расход, подарок).
-            </div>
+            Siin kirjeldatakse, kas makse oli poolte arusaamas “tagastatav” (st teise poole lubadus/ootus, et ta tasub hiljem).
+            Kui arusaam oli teistsugune, võib vaidluse fookus olla muu (nt abi, ühine kulu, kink, muu kokkulepe).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER 1 -->
+    <section class="card">
+      <h2 class="section-title">Filter 1 – Kas tagastamise kokkulepe on kirjeldatav?</h2>
+
+      <!-- Q3 -->
+      <div class="q" data-qid="q3">
+        <div class="q-row">
+          <h3 class="q-title">3. Kas teie vahel oli kokkulepe, et see summa tuleb tagasi maksta?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 3"
+            aria-expanded="false"
+            aria-controls="help-q3"
+            data-help-target="help-q3">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 3 vastused">
+          <label class="opt"><input type="radio" name="q3" value="clear"> Jah, selgelt</label>
+          <label class="opt"><input type="radio" name="q3" value="oral"> Jah, aga ainult suuliselt / jutu sees</label>
+          <label class="opt"><input type="radio" name="q3" value="unsure"> Ei ole kindel</label>
+        </div>
+
+        <div class="help" id="help-q3" role="region" aria-label="Selgitus küsimusele 3" hidden>
+          <div class="help-inner">
+            See küsimus kirjeldab, kas poolte arusaamas oli tehingu põhisisu “tagasi maksmine”.
+            Vaidlustes on see sageli keskne, sest üks pool võib pidada tehingut laenuks, teine pool aga abiks või muuks kokkuleppeks.
+            Vastus “ei ole kindel” viitab tavaliselt ebaselgele sõnastusele (“kui saad”, “kunagi”, “vaatame”).
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q" data-qid="q4">
+        <div class="q-row">
+          <h3 class="q-title">4. Kas see tagastamise kokkulepe on kuskil kirjas või jälgitav?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 4"
+            aria-expanded="false"
+            aria-controls="help-q4"
+            data-help-target="help-q4">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 4 vastused">
+          <label class="opt"><input type="radio" name="q4" value="contract"> Kirjalik leping / võlakiri</label>
+          <label class="opt"><input type="radio" name="q4" value="messages"> Sõnumid / e-kirjad</label>
+          <label class="opt"><input type="radio" name="q4" value="oral"> Ainult suuline kokkulepe</label>
+          <label class="opt"><input type="radio" name="q4" value="missing"> Ei tea / mul ei ole alles</label>
+        </div>
+
+        <div class="help" id="help-q4" role="region" aria-label="Selgitus küsimusele 4" hidden>
+          <div class="help-inner">
+            Siin kirjeldatakse, kas tagastamise arusaam on “nähtav” ka väljaspool poolte mälupilti (nt dokumendis või sõnumites).
+            Kui kirjalik jälg puudub või pole alles, nihkub vaidluse fookus sageli sellele, kuidas pooled kokkulepet kirjeldavad ja mis asjaolud seda toetavad.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER 2 -->
+    <section class="card">
+      <h2 class="section-title">Filter 2 – Ajalisus (tähtaeg ja “millal pidi tagasi minema”)</h2>
+
+      <!-- Q5 -->
+      <div class="q" data-qid="q5">
+        <div class="q-row">
+          <h3 class="q-title">5. Kas lepiti kokku, millal raha tuleb tagasi maksta?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 5"
+            aria-expanded="false"
+            aria-controls="help-q5"
+            data-help-target="help-q5">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 5 vastused">
+          <label class="opt"><input type="radio" name="q5" value="date"> Jah, konkreetne kuupäev</label>
+          <label class="opt"><input type="radio" name="q5" value="period"> Jah, teatud aja jooksul</label>
+          <label class="opt"><input type="radio" name="q5" value="none"> Ei, tähtaega ei olnud</label>
+          <label class="opt"><input type="radio" name="q5" value="unsure"> Ei ole kindel</label>
+        </div>
+
+        <div class="help" id="help-q5" role="region" aria-label="Selgitus küsimusele 5" hidden>
+          <div class="help-inner">
+            See kirjeldab, kas tagasimakse ajastus oli selgelt kokku lepitud või jäi lahtiseks.
+            Praktikas tekivad erimeelsused sageli just siin: üks pool mäletab kuupäeva, teine pool mäletab üldist lubadust (“maksan tagasi”).
+            Vastus suunab järgmise küsimuse juurde: kas aeg on möödas või kas tagasimakse teema on eraldi välja öeldud.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 (conditional: q5=date or period) -->
+      <div class="q is-hidden" data-qid="q6" data-show-when-any="q5:date|q5:period">
+        <div class="q-row">
+          <h3 class="q-title">6. Kas see tähtaeg on möödas?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 6"
+            aria-expanded="false"
+            aria-controls="help-q6"
+            data-help-target="help-q6">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 6 vastused">
+          <label class="opt"><input type="radio" name="q6" value="yes"> Jah</label>
+          <label class="opt"><input type="radio" name="q6" value="no"> Ei</label>
+        </div>
+
+        <div class="help" id="help-q6" role="region" aria-label="Selgitus küsimusele 6" hidden>
+          <div class="help-inner">
+            See on faktiküsimus: kas kokkulepitud ajani on jõutud.
+            Kui aeg ei ole möödas, siis vaidluse keskne teema on tavaliselt pigem kokkuleppe sisu ja arusaamad, mitte “hilinemine”.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6A (conditional: q5=none or unsure) -->
+      <div class="q is-hidden" data-qid="q6a" data-show-when-any="q5:none|q5:unsure">
+        <div class="q-row">
+          <h3 class="q-title">6A. Kas sa oled teisele poolele selgelt öelnud, et soovid raha tagasi?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 6A"
+            aria-expanded="false"
+            aria-controls="help-q6a"
+            data-help-target="help-q6a">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 6A vastused">
+          <label class="opt"><input type="radio" name="q6a" value="yes"> Jah</label>
+          <label class="opt"><input type="radio" name="q6a" value="no"> Ei</label>
+          <label class="opt"><input type="radio" name="q6a" value="unsure"> Ei ole kindel</label>
+        </div>
+
+        <div class="help" id="help-q6a" role="region" aria-label="Selgitus küsimusele 6A" hidden>
+          <div class="help-inner">
+            Kui konkreetset tähtaega ei olnud (või see ei ole selge), kirjeldab see küsimus,
+            kas tagasimakse teema on olnud eraldi ja üheselt sõnastatud.
+            Vastus “ei ole kindel” viitab sageli olukorrale, kus juttu oli kaudselt, kuid mitte selge palvena “tahan tagasi”.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER 3 -->
+    <section class="card">
+      <h2 class="section-title">Filter 3 – Tagasimakse ja väited</h2>
+
+      <!-- Q7 -->
+      <div class="q" data-qid="q7">
+        <div class="q-row">
+          <h3 class="q-title">7. Kas raha on tagasi makstud?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 7"
+            aria-expanded="false"
+            aria-controls="help-q7"
+            data-help-target="help-q7">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 7 vastused">
+          <label class="opt"><input type="radio" name="q7" value="full"> Jah, täielikult</label>
+          <label class="opt"><input type="radio" name="q7" value="part"> Jah, osaliselt</label>
+          <label class="opt"><input type="radio" name="q7" value="none"> Ei, üldse mitte</label>
+          <label class="opt"><input type="radio" name="q7" value="unsure"> Ei ole kindel</label>
+        </div>
+
+        <div class="help" id="help-q7" role="region" aria-label="Selgitus küsimusele 7" hidden>
+          <div class="help-inner">
+            See kirjeldab tagasimakse seisu. Kui vastused erinevad (“üks ütleb makstud, teine ütleb mitte”),
+            liigub vaidluse fookus sageli maksete tuvastamisele: mis kuupäeval, mis summas ja mis selgitusega.
+            “Ei ole kindel” sobib olukorda, kus on olnud liikumisi, kuid tervikpilt on segane.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8 (conditional: q7=part or unsure) -->
+      <div class="q is-hidden" data-qid="q8" data-show-when-any="q7:part|q7:unsure">
+        <div class="q-row">
+          <h3 class="q-title">8. Kas sul on ülevaade, kui suur summa on veel tasumata?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 8"
+            aria-expanded="false"
+            aria-controls="help-q8"
+            data-help-target="help-q8">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 8 vastused">
+          <label class="opt"><input type="radio" name="q8" value="exact"> Jah, tean täpselt</label>
+          <label class="opt"><input type="radio" name="q8" value="rough"> Umbes tean</label>
+          <label class="opt"><input type="radio" name="q8" value="no"> Ei tea</label>
+        </div>
+
+        <div class="help" id="help-q8" role="region" aria-label="Selgitus küsimusele 8" hidden>
+          <div class="help-inner">
+            See kirjeldab, kas tagasimaksete arvestus on selge. Kui ülevaade on ebaselge,
+            võib vaidlus keskenduda sellele, millised liikumised olid tagasimaksed ja millised olid midagi muud (nt teised tehingud).
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q" data-qid="q9">
+        <div class="q-row">
+          <h3 class="q-title">9. Kas teine pool ütleb, et ta on raha tagasi maksnud?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 9"
+            aria-expanded="false"
+            aria-controls="help-q9"
+            data-help-target="help-q9">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 9 vastused">
+          <label class="opt"><input type="radio" name="q9" value="yes"> Jah</label>
+          <label class="opt"><input type="radio" name="q9" value="no"> Ei</label>
+          <label class="opt"><input type="radio" name="q9" value="dontknow"> Ei tea</label>
+        </div>
+
+        <div class="help" id="help-q9" role="region" aria-label="Selgitus küsimusele 9" hidden>
+          <div class="help-inner">
+            See kirjeldab, kas vaidluses on kaks erinevat versiooni tagasimaksete kohta.
+            Kui teine pool väidab tasumist, muutuvad oluliseks detailid: millal, mis summas ja kuidas maksti (ülekanne, sularaha, muu arvestus).
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 (conditional: q9=yes) -->
+      <div class="q is-hidden" data-qid="q10" data-show-when="q9:yes">
+        <div class="q-row">
+          <h3 class="q-title">10. Kas sul on teada, kas tal on selle kohta tõend?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 10"
+            aria-expanded="false"
+            aria-controls="help-q10"
+            data-help-target="help-q10">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 10 vastused">
+          <label class="opt"><input type="radio" name="q10" value="yes"> Jah</label>
+          <label class="opt"><input type="radio" name="q10" value="no"> Ei</label>
+          <label class="opt"><input type="radio" name="q10" value="dontknow"> Ei tea</label>
+        </div>
+
+        <div class="help" id="help-q10" role="region" aria-label="Selgitus küsimusele 10" hidden>
+          <div class="help-inner">
+            “Tõend” võib olla eri kujul: pangaülekanne, kviitung, sõnum “saadud”, või muu info, mis seob väite konkreetse maksega.
+            Kui sellist konkreetset viidet ei nimetata, kirjeldatakse olukorda sageli kui “väide vs väide”, kus detailid muutuvad keskseks.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FILTER 4 -->
+    <section class="card">
+      <h2 class="section-title">Filter 4 – Intress, viivis ja lisasummad</h2>
+
+      <!-- Q11 -->
+      <div class="q" data-qid="q11">
+        <div class="q-row">
+          <h3 class="q-title">11. Kas teil oli kokkulepe intressi kohta (tasu raha kasutamise eest)?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 11"
+            aria-expanded="false"
+            aria-controls="help-q11"
+            data-help-target="help-q11">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 11 vastused">
+          <label class="opt"><input type="radio" name="q11" value="yes"> Jah</label>
+          <label class="opt"><input type="radio" name="q11" value="no"> Ei</label>
+          <label class="opt"><input type="radio" name="q11" value="dontknow"> Ei tea</label>
+        </div>
+
+        <div class="help" id="help-q11" role="region" aria-label="Selgitus küsimusele 11" hidden>
+          <div class="help-inner">
+            See kirjeldab, kas lisaks põhisumma tagastamisele oli kokkuleppes juttu ka tasust selle eest, et raha oli teise poole kasutuses.
+            Mõnes suhtes lepitakse see selgelt kokku, teistes seda ei arutata üldse või kasutatakse ebamäärast sõnastust.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q12 -->
+      <div class="q" data-qid="q12">
+        <div class="q-row">
+          <h3 class="q-title">12. Kui tagasimakse hilines, kas arutelus oli juttu lisasummast hilinemise eest?</h3>
+          <button class="helpbtn" type="button"
+            aria-label="Ava selgitus küsimusele 12"
+            aria-expanded="false"
+            aria-controls="help-q12"
+            data-help-target="help-q12">
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+
+        <div class="q-answers" role="group" aria-label="Küsimus 12 vastused">
+          <label class="opt"><input type="radio" name="q12" value="delayfee"> Jah, viivisest / hilinemise tasust</label>
+          <label class="opt"><input type="radio" name="q12" value="interest_after"> Jah, intressist ka pärast tähtaega</label>
+          <label class="opt"><input type="radio" name="q12" value="principal_only"> Ei, ainult põhisummast</label>
+          <label class="opt"><input type="radio" name="q12" value="dontknow"> Ei tea</label>
+        </div>
+
+        <div class="help" id="help-q12" role="region" aria-label="Selgitus küsimusele 12" hidden>
+          <div class="help-inner">
+            See kirjeldab, kas lisaks põhisummale oli juttu ka “hilinemisega seotud” lisarahast.
+            Praktikas kasutatakse sageli erinevaid sõnu (“viivis”, “intress”, “lisaraha”), kuigi pooled võivad mõelda erinevaid asju.
+            Siin on oluline lihtsalt fikseerida, millest räägiti.
           </div>
         </div>
       </div>
