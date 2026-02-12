@@ -1,13 +1,38 @@
 /* Layout */
 .wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
 .pagehead { margin-bottom: 18px; }
-.lead { opacity: .85; margin-top: 8px; }
+.pagetitle { margin: 0; font-size: 22px; line-height: 1.15; }
+.lead { opacity: .88; margin: 10px 0 0; line-height: 1.35; }
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.langnav { display: flex; gap: 8px; }
+.langlink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.langlink.is-active { background: rgba(255,255,255,.22); }
 
 .card {
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.10);
   border-radius: 16px;
   padding: 18px 16px;
+  margin-top: 14px;
 }
 
 .section-title { margin: 0 0 14px; font-size: 18px; }
@@ -15,6 +40,7 @@
 /* Question block */
 .q { padding: 14px 0; border-top: 1px solid rgba(255,255,255,.10); }
 .q:first-of-type { border-top: 0; padding-top: 0; }
+
 .q-row {
   display: flex;
   align-items: flex-start;
@@ -41,15 +67,15 @@
 }
 .opt input { margin-top: 3px; }
 
-/* Help button: visible, round, solid */
+/* Help button: round, solid, visible */
 .helpbtn {
   width: 34px;
   height: 34px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.20);
-  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.16);
   color: #fff;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1;
   display: grid;
   place-items: center;
@@ -58,12 +84,11 @@
   user-select: none;
 }
 
-.helpbtn:hover { background: rgba(255,255,255,.22); }
+.helpbtn:hover { background: rgba(255,255,255,.24); }
 .helpbtn:active { transform: translateY(1px); }
 
-/* Strong focus ring (accessibility) */
 .helpbtn:focus-visible,
-.langbtn:focus-visible {
+.langlink:focus-visible {
   outline: 3px solid rgba(255,255,255,.55);
   outline-offset: 2px;
 }
@@ -81,24 +106,16 @@
   font-size: 14px;
   line-height: 1.35;
   opacity: .92;
+  max-width: 78ch; /* hoiab teksti “mitte väsitavana” */
 }
 
-/* Keep help text from feeling “too long” */
-.help-inner {
-  max-width: 78ch;
-}
-
-/* Simple language switch */
-.langswitch { display: flex; gap: 8px; margin-top: 12px; }
-.langbtn {
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.10);
-  color: #fff;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-.langbtn.is-active { background: rgba(255,255,255,.22); }
-
-/* Conditional show/hide for dependent questions */
+/* Conditional show/hide */
 .q.is-hidden { display: none; }
+
+/* Mobile tweaks */
+@media (max-width: 520px) {
+  .topbar { flex-direction: column; align-items: stretch; }
+  .langnav { justify-content: flex-start; }
+  .helpbtn { width: 36px; height: 36px; }
+  .opt { padding: 12px 10px; }
+}
