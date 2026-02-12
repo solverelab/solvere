@@ -1,1 +1,104 @@
+/* Layout */
+.wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
+.pagehead { margin-bottom: 18px; }
+.lead { opacity: .85; margin-top: 8px; }
 
+.card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  padding: 18px 16px;
+}
+
+.section-title { margin: 0 0 14px; font-size: 18px; }
+
+/* Question block */
+.q { padding: 14px 0; border-top: 1px solid rgba(255,255,255,.10); }
+.q:first-of-type { border-top: 0; padding-top: 0; }
+.q-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.q-title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.25;
+  flex: 1;
+}
+
+/* Answers */
+.q-answers { margin-top: 10px; display: grid; gap: 8px; }
+.opt {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.10);
+}
+.opt input { margin-top: 3px; }
+
+/* Help button: visible, round, solid */
+.helpbtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.20);
+  background: rgba(255,255,255,.14);
+  color: #fff;
+  font-weight: 700;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  cursor: pointer;
+  user-select: none;
+}
+
+.helpbtn:hover { background: rgba(255,255,255,.22); }
+.helpbtn:active { transform: translateY(1px); }
+
+/* Strong focus ring (accessibility) */
+.helpbtn:focus-visible,
+.langbtn:focus-visible {
+  outline: 3px solid rgba(255,255,255,.55);
+  outline-offset: 2px;
+}
+
+/* Help accordion panel */
+.help {
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+}
+
+.help-inner {
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.35;
+  opacity: .92;
+}
+
+/* Keep help text from feeling “too long” */
+.help-inner {
+  max-width: 78ch;
+}
+
+/* Simple language switch */
+.langswitch { display: flex; gap: 8px; margin-top: 12px; }
+.langbtn {
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.langbtn.is-active { background: rgba(255,255,255,.22); }
+
+/* Conditional show/hide for dependent questions */
+.q.is-hidden { display: none; }
